@@ -2,7 +2,9 @@
   "network": "mainnet",
 
   "startBlockNFTXFactory": "12675821",
+  "startBlockInventoryStaking": "14026322",
   "startBlockNFT": "5806610",
 
-  "addressVaultFactory": "0xBE86f647b167567525cCAAfcd6f881F1Ee558216"
+  "addressVaultFactory": "0xBE86f647b167567525cCAAfcd6f881F1Ee558216",
+  "addressInventoryStaking": "0x3E135c3E981fAe3383A5aE0d323860a34CfAB893"
 }
