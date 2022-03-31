@@ -6,11 +6,11 @@ dataSources:
   - kind: ethereum/contract
     name: NFTXVaultFactoryUpgradeable
     # prettier-ignore
-    network: mainnet
+    network: {{network}}
     source:
-      address: '0xBE86f647b167567525cCAAfcd6f881F1Ee558216'
+      address: '{{addressVaultFactory}}'
       abi: NFTXVaultFactoryUpgradeable
-      startBlock: 12675821
+      startBlock: {{startBlockNFTXFactory}}
     mapping:
       file: ./src/mappings/vault.ts
       kind: ethereum/events
@@ -27,7 +27,7 @@ dataSources:
 templates:
   - kind: ethereum/contract
     name: NFTXVaultUpgradeable
-    network: mainnet
+    network: {{network}}
     source:
       abi: NFTXVaultUpgradeable
     mapping:

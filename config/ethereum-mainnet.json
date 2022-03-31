@@ -1,0 +1,8 @@
+{
+  "network": "mainnet",
+
+  "startBlockNFTXFactory": "12675821",
+  "startBlockNFT": "5806610",
+
+  "addressVaultFactory": "0xBE86f647b167567525cCAAfcd6f881F1Ee558216"
+}
