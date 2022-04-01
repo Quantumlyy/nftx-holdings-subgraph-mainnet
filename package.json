@@ -17,6 +17,7 @@
     "@graphprotocol/graph-ts": "^0.26.0",
     "@openzeppelin/contracts": "^4.5.0",
     "@openzeppelin/subgraphs": "^0.1.7-1",
+    "@sushiswap/core": "^1.4.2",
     "mustache": "^4.2.0"
   },
   "resolutions": {

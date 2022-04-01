@@ -43,6 +43,54 @@ dataSources:
       eventHandlers:
         - event: XTokenCreated(uint256,address,address)
           handler: handleXTokenCreated
+  - kind: ethereum/contract
+    name: NFTXStakingZap
+    network: {{network}}
+    source:
+      address: '{{addressStakingZap}}'
+      abi: NFTXStakingZap
+      startBlock: {{startBlockZaps}}
+    mapping:
+      file: ./src/mappings/pairs.ts
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - Zap
+      abis:
+        - name: NFTXStakingZap
+          file: ./abis/NFTXStakingZap.json
+        - name: Factory
+          file: ./node_modules/@sushiswap/core/build/abi/UniswapV2Factory.json
+        - name: NFTXVaultFactoryUpgradeable
+          file: ./abis/NFTXVaultFactoryUpgradeable.json
+      eventHandlers:
+        - event: UserStaked(uint256,uint256,uint256,uint256,address)
+          handler: handleVaultTokenWETHPairCreation
+  - kind: ethereum/contract
+    name: NFTXStakingZapV2
+    network: {{network}}
+    source:
+      address: '{{addressStakingZapV2}}'
+      abi: NFTXStakingZap
+      startBlock: {{startBlockZapsV2}}
+    mapping:
+      file: ./src/mappings/pairs.ts
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - Zap
+      abis:
+        - name: NFTXStakingZap
+          file: ./abis/NFTXStakingZap.json
+        - name: Factory
+          file: ./node_modules/@sushiswap/core/build/abi/UniswapV2Factory.json
+        - name: NFTXVaultFactoryUpgradeable
+          file: ./abis/NFTXVaultFactoryUpgradeable.json
+      eventHandlers:
+        - event: UserStaked(uint256,uint256,uint256,uint256,address)
+          handler: handleVaultTokenWETHPairCreation
 templates:
   - kind: ethereum/contract
     name: NFTXVaultUpgradeable
@@ -81,6 +129,30 @@ templates:
       abis:
         - name: XTokenUpgradeable
           file: ./abis/XTokenUpgradeable.json
+        - name: IERC20
+          file: ./node_modules/@openzeppelin/contracts/build/contracts/IERC20Metadata.json
+      eventHandlers:
+        - event: Approval(indexed address,indexed address,uint256)
+          handler: handleApproval
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+  - kind: ethereum/contract
+    name: SLP
+    network: {{network}}
+    source:
+      abi: Pair
+    mapping:
+      file: ./node_modules/@openzeppelin/subgraphs/src/datasources/erc20.ts
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - ERC20Contract
+      abis:
+        - name: Pair
+          file: ./node_modules/@sushiswap/core/build/abi/UniswapV2Pair.json
+        - name: Factory
+          file: ./node_modules/@sushiswap/core/build/abi/UniswapV2Factory.json
         - name: IERC20
           file: ./node_modules/@openzeppelin/contracts/build/contracts/IERC20Metadata.json
       eventHandlers:
