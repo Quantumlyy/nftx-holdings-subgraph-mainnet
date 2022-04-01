@@ -4,9 +4,9 @@
   "scripts": {
     "codegen": "graph codegen",
     "build": "graph build",
-    "prepare:ethreum:mainnet": "mustache config/ethereum-mainnet.json subgraph.template.yaml > subgraph.yaml",
+    "prepare:ethereum:mainnet": "mustache config/ethereum-mainnet.json subgraph.template.yaml > subgraph.yaml",
     "create:local": "graph create --node http://localhost:8020/ quantumlyy/nftx-holdings-subgraph-mainnet",
-    "deploy:ethreum:mainnet": "graph deploy --product hosted-service quantumlyy/nftx-holdings-subgraph-mainnet",
+    "deploy:ethereum:mainnet": "graph deploy --product hosted-service quantumlyy/nftx-holdings-subgraph-mainnet",
     "deploy:local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 quantumlyy/nftx-holdings-subgraph-mainnet",
     "remove:local": "graph remove --node http://localhost:8020/ kodexlabs/exchange-subgraph"
   },

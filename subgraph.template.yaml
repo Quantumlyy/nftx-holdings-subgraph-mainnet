@@ -20,9 +20,13 @@ dataSources:
       abis:
         - name: NFTXVaultFactoryUpgradeable
           file: ./abis/NFTXVaultFactoryUpgradeable.json
+        - name: NFTXFeeDistributor
+          file: ./abis/NFTXFeeDistributor.json
       eventHandlers:
         - event: NewVault(indexed uint256,address,address)
           handler: handleNewVault
+        - event: NewFeeDistributor(address,address)
+          handler: handleNewFeeDistributor
   - kind: ethereum/contract
     name: NFTXInventoryStaking
     network: {{network}}
@@ -92,6 +96,26 @@ dataSources:
         - event: UserStaked(uint256,uint256,uint256,uint256,address)
           handler: handleVaultTokenWETHPairCreation
 templates:
+  - kind: ethereum/contract
+    name: NFTXLPStaking
+    network: {{network}}
+    source:
+      abi: NFTXLPStaking
+    mapping:
+      file: ./src/mappings/pairs.ts
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - Vault
+      abis:
+        - name: NFTXLPStaking
+          file: ./abis/NFTXLPStaking.json
+      eventHandlers:
+        - event: PoolCreated(uint256,address)
+          handler: handlePoolCreated
+        - event: PoolUpdated(uint256,address)
+          handler: handlePoolUpdated
   - kind: ethereum/contract
     name: NFTXVaultUpgradeable
     network: {{network}}
