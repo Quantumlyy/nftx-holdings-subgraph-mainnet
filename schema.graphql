@@ -1,6 +1,7 @@
 type Account @entity {
 	id: ID!
 	asERC20: ERC20Contract
+	asVaultAsset: VaultAsset
 	ERC20balances: [ERC20Balance!]! @derivedFrom(field: "account")
 	ERC20approvalsOwner: [ERC20Approval!]! @derivedFrom(field: "owner")
 	ERC20approvalsSpender: [ERC20Approval!]! @derivedFrom(field: "spender")
@@ -8,9 +9,17 @@ type Account @entity {
 	ERC20transferToEvent: [ERC20Transfer!]! @derivedFrom(field: "to")
 	events: [Event!]! @derivedFrom(field: "emitter")
 }
+type VaultAsset @entity {
+	id: ID!
+	asAccount: Account
+	asERC20: ERC20Contract
+
+	vaultId: BigInt
+}
 type ERC20Contract @entity {
 	id: ID!
 	asAccount: Account!
+	asVaultAsset: VaultAsset!
 	name: String
 	symbol: String
 	decimals: Int!
@@ -18,8 +27,6 @@ type ERC20Contract @entity {
 	balances: [ERC20Balance!]! @derivedFrom(field: "contract")
 	approvals: [ERC20Approval!]! @derivedFrom(field: "contract")
 	transfers: [ERC20Transfer!]! @derivedFrom(field: "contract")
-
-	vault: BigInt
 }
 type ERC20Balance @entity {
 	id: ID!
@@ -38,6 +45,12 @@ type ERC20Approval @entity {
 	value: BigDecimal!
 	valueExact: BigInt!
 }
+interface Event {
+	id: ID!
+	transaction: Transaction!
+	emitter: Account!
+	timestamp: BigInt!
+}
 type ERC20Transfer implements Event @entity {
 	id: ID!
 	emitter: Account!
@@ -50,12 +63,6 @@ type ERC20Transfer implements Event @entity {
 	toBalance: ERC20Balance
 	value: BigDecimal!
 	valueExact: BigInt!
-}
-interface Event {
-	id: ID!
-	transaction: Transaction!
-	emitter: Account!
-	timestamp: BigInt!
 }
 type Transaction @entity {
 	id: ID!

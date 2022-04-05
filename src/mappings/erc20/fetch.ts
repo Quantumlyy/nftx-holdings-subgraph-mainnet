@@ -6,11 +6,14 @@ import {
   ERC20Approval,
   ERC20Balance,
   ERC20Contract,
+  VaultAsset,
 } from "../../../generated/schema";
 import { fetchAccount } from "../utils/fetch/account";
+import { fetchVaultAsset } from "../utils/fetch/vaultAsset";
 
 export function fetchERC20(address: Address): ERC20Contract {
   let account = fetchAccount(address);
+  let vault = fetchVaultAsset(account.id);
   let contract = ERC20Contract.load(account.id);
 
   if (contract == null) {
@@ -29,9 +32,14 @@ export function fetchERC20(address: Address): ERC20Contract {
       null
     ).id;
     contract.asAccount = account.id;
+    contract.asVaultAsset = vault.id;
     account.asERC20 = contract.id;
+    account.asVaultAsset = vault.id;
+    vault.asAccount = account.id;
+    vault.asERC20 = contract.id;
     contract.save();
     account.save();
+    vault.save();
   }
 
   return contract as ERC20Contract;
