@@ -119,10 +119,10 @@ templates:
         - event: PoolUpdated(uint256,address)
           handler: handlePoolUpdated
   - kind: ethereum/contract
-    name: NFTXVaultUpgradeable
+    name: Token
     network: {{network}}
     source:
-      abi: NFTXVaultUpgradeable
+      abi: IERC20
     mapping:
       file: ./src/mappings/erc20/datasource.ts
       kind: ethereum/events
@@ -133,50 +133,8 @@ templates:
       abis:
         - name: NFTXVaultUpgradeable
           file: ./abis/NFTXVaultUpgradeable.json
-        - name: IERC20
-          file: ./node_modules/@openzeppelin/contracts/build/contracts/IERC20Metadata.json
-      eventHandlers:
-        - event: Approval(indexed address,indexed address,uint256)
-          handler: handleApproval
-        - event: Transfer(indexed address,indexed address,uint256)
-          handler: handleTransfer
-  - kind: ethereum/contract
-    name: XTokenUpgradeable
-    network: {{network}}
-    source:
-      abi: XTokenUpgradeable
-    mapping:
-      file: ./src/mappings/erc20/datasource.ts
-      kind: ethereum/events
-      apiVersion: 0.0.6
-      language: wasm/assemblyscript
-      entities:
-        - ERC20Contract
-      abis:
         - name: XTokenUpgradeable
           file: ./abis/XTokenUpgradeable.json
-        - name: IERC20
-          file: ./node_modules/@openzeppelin/contracts/build/contracts/IERC20Metadata.json
-      eventHandlers:
-        - event: Approval(indexed address,indexed address,uint256)
-          handler: handleApproval
-        - event: Transfer(indexed address,indexed address,uint256)
-          handler: handleTransfer
-  - kind: ethereum/contract
-    name: SLP
-    network: {{network}}
-    source:
-      abi: Pair
-    mapping:
-      file: ./src/mappings/erc20/datasource.ts
-      kind: ethereum/events
-      apiVersion: 0.0.6
-      language: wasm/assemblyscript
-      entities:
-        - ERC20Contract
-      abis:
-        - name: Pair
-          file: ./node_modules/@sushiswap/core/build/abi/UniswapV2Pair.json
         - name: Factory
           file: ./node_modules/@sushiswap/core/build/abi/UniswapV2Factory.json
         - name: IERC20

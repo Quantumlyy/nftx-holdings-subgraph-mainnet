@@ -1,19 +1,17 @@
-import { Address } from "@graphprotocol/graph-ts";
+import { Address, BigInt } from "@graphprotocol/graph-ts";
 import { Factory } from "../../generated/NFTXStakingZapV2/Factory";
 import { UserStaked } from "../../generated/NFTXStakingZapV2/NFTXStakingZap";
 import { NFTXVaultFactoryUpgradeable } from "../../generated/NFTXStakingZapV2/NFTXVaultFactoryUpgradeable";
-import { ERC20Contract } from "../../generated/schema";
-import { SLP } from "../../generated/templates";
+import {
+  PoolCreated,
+  PoolUpdated,
+} from "../../generated/templates/NFTXLPStaking/NFTXLPStaking";
 import {
   MAINNET_NFTX_VAULT_FACTORY,
   MAINNET_SUSHISWAP_FACTORY,
   MAINNET_WETH,
 } from "./utils/constants";
-import { fetchAccount } from "./utils/fetch/account";
-import {
-  PoolCreated,
-  PoolUpdated,
-} from "../../generated/templates/NFTXLPStaking/NFTXLPStaking";
+import { createTokenAndAssignVaultId } from "./utils/vaultIdAssignment";
 
 export function handleVaultTokenWETHPairCreation(event: UserStaked): void {
   const sushiswapFactory = Factory.bind(MAINNET_SUSHISWAP_FACTORY);
@@ -34,27 +32,17 @@ export function handleVaultTokenWETHPairCreation(event: UserStaked): void {
     Address.fromString(token1)
   );
 
-  const account = fetchAccount(pair);
-  const tokenContract = ERC20Contract.load(account.id);
-
-  if (tokenContract === null) {
-    SLP.create(pair);
-  }
+  createTokenAndAssignVaultId(pair, event.params.vaultId);
 }
 
-function newPool(pair: Address): void {
-  const account = fetchAccount(pair);
-  const tokenContract = ERC20Contract.load(account.id);
-
-  if (tokenContract === null) {
-    SLP.create(pair);
-  }
+function newPool(pair: Address, vaultId: BigInt): void {
+  createTokenAndAssignVaultId(pair, vaultId);
 }
 
 export function handlePoolCreated(event: PoolCreated): void {
-  newPool(event.params.pool);
+  newPool(event.params.pool, event.params.vaultId);
 }
 
 export function handlePoolUpdated(event: PoolUpdated): void {
-  newPool(event.params.pool);
+  newPool(event.params.pool, event.params.vaultId);
 }

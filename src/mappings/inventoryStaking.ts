@@ -1,6 +1,6 @@
 import { XTokenCreated } from "../../generated/NFTXInventoryStaking/NFTXInventoryStaking";
-import { XTokenUpgradeable } from "../../generated/templates";
+import { createTokenAndAssignVaultId } from "./utils/vaultIdAssignment";
 
 export function handleXTokenCreated(event: XTokenCreated): void {
-  XTokenUpgradeable.create(event.params.xToken);
+  createTokenAndAssignVaultId(event.params.xToken, event.params.vaultId);
 }

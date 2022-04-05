@@ -18,6 +18,8 @@ type ERC20Contract @entity {
 	balances: [ERC20Balance!]! @derivedFrom(field: "contract")
 	approvals: [ERC20Approval!]! @derivedFrom(field: "contract")
 	transfers: [ERC20Transfer!]! @derivedFrom(field: "contract")
+
+	vault: BigInt
 }
 type ERC20Balance @entity {
 	id: ID!
