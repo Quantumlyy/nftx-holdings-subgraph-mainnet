@@ -70,6 +70,8 @@ dataSources:
           file: ./node_modules/@sushiswap/core/build/abi/UniswapV2Factory.json
         - name: NFTXVaultFactoryUpgradeable
           file: ./abis/NFTXVaultFactoryUpgradeable.json
+        - name: StakingTokenProvider
+          file: ./abis/StakingTokenProvider.json
       eventHandlers:
         - event: UserStaked(uint256,uint256,uint256,uint256,address)
           handler: handleVaultTokenWETHPairCreation
@@ -92,6 +94,8 @@ dataSources:
           file: ./abis/NFTXStakingZap.json
         - name: Factory
           file: ./node_modules/@sushiswap/core/build/abi/UniswapV2Factory.json
+        - name: StakingTokenProvider
+          file: ./abis/StakingTokenProvider.json
         - name: NFTXVaultFactoryUpgradeable
           file: ./abis/NFTXVaultFactoryUpgradeable.json
       eventHandlers:
