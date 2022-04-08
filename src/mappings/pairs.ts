@@ -26,10 +26,13 @@ function stakingPair(vaultId: BigInt): void {
     MAINNET_STAKING_TOKEN_PROVIDER
   );
 
-  const vaultToken = nftxVaultFactory.vault(vaultId);
-  const pair = stakingTokenProvider.stakingTokenForVaultToken(vaultToken);
+  const vaultTokenFromInstance = nftxVaultFactory.try_vault(vaultId);
+  if (vaultTokenFromInstance.reverted) return;
 
-  createTokenAndAssignVaultId(pair, vaultId);
+  const pairFromInstance = stakingTokenProvider.try_stakingTokenForVaultToken(vaultTokenFromInstance.value);
+  if (pairFromInstance.reverted) return;
+
+  createTokenAndAssignVaultId(pairFromInstance.value, vaultId);
 }
 
 function newPool(pair: Address, vaultId: BigInt): void {
