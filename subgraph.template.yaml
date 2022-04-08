@@ -113,6 +113,10 @@ templates:
       abis:
         - name: NFTXLPStaking
           file: ./abis/NFTXLPStaking.json
+        - name: NFTXVaultFactoryUpgradeable
+          file: ./abis/NFTXVaultFactoryUpgradeable.json
+        - name: StakingTokenProvider
+          file: ./abis/StakingTokenProvider.json
       eventHandlers:
         - event: PoolCreated(uint256,address)
           handler: handlePoolCreated
@@ -131,12 +135,14 @@ templates:
       entities:
         - ERC20Contract
       abis:
+        - name: NFTXVaultFactoryUpgradeable
+          file: ./abis/NFTXVaultFactoryUpgradeable.json
         - name: NFTXVaultUpgradeable
           file: ./abis/NFTXVaultUpgradeable.json
         - name: XTokenUpgradeable
           file: ./abis/XTokenUpgradeable.json
-        - name: Factory
-          file: ./node_modules/@sushiswap/core/build/abi/UniswapV2Factory.json
+        - name: StakingTokenProvider
+          file: ./abis/StakingTokenProvider.json
         - name: IERC20
           file: ./node_modules/@openzeppelin/contracts/build/contracts/IERC20Metadata.json
       eventHandlers:
