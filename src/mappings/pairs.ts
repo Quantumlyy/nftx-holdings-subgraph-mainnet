@@ -12,7 +12,7 @@ import {
   MAINNET_STAKING_TOKEN_PROVIDER,
   MAINNET_WETH,
 } from "./utils/constants";
-import { createTokenAndAssignVaultId } from "./utils/vaultIdAssignment";
+import { createTokenAndAssignAssetInfo } from "./utils/vaultIdAssignment";
 
 export function handleVaultTokenWETHPairCreation(event: UserStaked): void {
   stakingPair(event.params.vaultId);
@@ -32,11 +32,11 @@ function stakingPair(vaultId: BigInt): void {
   const pairFromInstance = stakingTokenProvider.try_stakingTokenForVaultToken(vaultTokenFromInstance.value);
   if (pairFromInstance.reverted) return;
 
-  createTokenAndAssignVaultId(pairFromInstance.value, vaultId);
+  createTokenAndAssignAssetInfo(pairFromInstance.value, vaultId, "vTokenWETH");
 }
 
 function newPool(pair: Address, vaultId: BigInt): void {
-  createTokenAndAssignVaultId(pair, vaultId);
+  createTokenAndAssignAssetInfo(pair, vaultId, "xTokenWETH");
 }
 
 export function handlePoolCreated(event: PoolCreated): void {

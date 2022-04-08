@@ -15,6 +15,7 @@ type VaultAsset @entity {
 	asERC20: ERC20Contract
 
 	vaultId: BigInt
+	type: String
 }
 type ERC20Contract @entity {
 	id: ID!
