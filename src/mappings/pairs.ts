@@ -1,17 +1,12 @@
-import { Address, BigInt } from "@graphprotocol/graph-ts";
-import { Factory } from "../../generated/NFTXStakingZapV2/Factory";
+import { Address, BigInt, dataSource } from "@graphprotocol/graph-ts";
 import { UserStaked } from "../../generated/NFTXStakingZapV2/NFTXStakingZap";
-import { NFTXVaultFactoryUpgradeable } from "../../generated/templates/Token/NFTXVaultFactoryUpgradeable";
 import {
   PoolCreated,
   PoolUpdated,
 } from "../../generated/templates/NFTXLPStaking/NFTXLPStaking";
+import { NFTXVaultFactoryUpgradeable } from "../../generated/templates/Token/NFTXVaultFactoryUpgradeable";
 import { StakingTokenProvider } from "../../generated/templates/Token/StakingTokenProvider";
-import {
-  MAINNET_NFTX_VAULT_FACTORY,
-  MAINNET_STAKING_TOKEN_PROVIDER,
-  MAINNET_WETH,
-} from "./utils/constants";
+import { NFTX_VAULT_FACTORY, STAKING_TOKEN_PROVIDER } from "./utils/constants";
 import { createTokenAndAssignAssetInfo } from "./utils/vaultIdAssignment";
 
 export function handleVaultTokenWETHPairCreation(event: UserStaked): void {
@@ -19,17 +14,21 @@ export function handleVaultTokenWETHPairCreation(event: UserStaked): void {
 }
 
 function stakingPair(vaultId: BigInt): void {
+  const network: string = dataSource.network();
+
   const nftxVaultFactory = NFTXVaultFactoryUpgradeable.bind(
-    MAINNET_NFTX_VAULT_FACTORY
+    NFTX_VAULT_FACTORY(network)
   );
   const stakingTokenProvider = StakingTokenProvider.bind(
-    MAINNET_STAKING_TOKEN_PROVIDER
+    STAKING_TOKEN_PROVIDER(network)
   );
 
   const vaultTokenFromInstance = nftxVaultFactory.try_vault(vaultId);
   if (vaultTokenFromInstance.reverted) return;
 
-  const pairFromInstance = stakingTokenProvider.try_stakingTokenForVaultToken(vaultTokenFromInstance.value);
+  const pairFromInstance = stakingTokenProvider.try_stakingTokenForVaultToken(
+    vaultTokenFromInstance.value
+  );
   if (pairFromInstance.reverted) return;
 
   createTokenAndAssignAssetInfo(pairFromInstance.value, vaultId, "vTokenWETH");
