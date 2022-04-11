@@ -13,7 +13,7 @@ type VaultAsset @entity {
 	id: ID!
 	asAccount: Account
 	asERC20: ERC20Contract
-
+  xTokenShareValue: BigInt
 	vaultId: BigInt
 	type: String
 }
