@@ -46,6 +46,8 @@ dataSources:
       abis:
         - name: NFTXInventoryStaking
           file: ./abis/NFTXInventoryStaking.json
+        - name: NFTXVaultFactoryUpgradeable
+          file: ./abis/NFTXVaultFactoryUpgradeable.json
       eventHandlers:
         - event: XTokenCreated(uint256,address,address)
           handler: handleXTokenCreated
