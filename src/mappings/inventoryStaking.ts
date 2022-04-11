@@ -1,5 +1,6 @@
 import { Address, BigInt, dataSource } from "@graphprotocol/graph-ts";
 import { XTokenCreated, Deposit, Withdraw, NFTXInventoryStaking } from "../../generated/NFTXInventoryStaking/NFTXInventoryStaking";
+import { VaultAsset } from "../../generated/schema";
 import { NFTXVaultFactoryUpgradeable } from "../../generated/templates/Token/NFTXVaultFactoryUpgradeable";
 import { ADDRESS_ZERO, NFTX_INVENTORY_STAKING, NFTX_VAULT_FACTORY } from "./utils/constants";
 import { fetchAccount } from "./utils/fetch/account";
@@ -18,7 +19,10 @@ export function handleXTokenDeposited(event: Deposit): void {
   let xTokenShareValue = getXTokenShareValue(vaultId, network);
   
   let account = fetchAccount(vaultAddress);
-  let vaultAsset = fetchVaultAsset(account.id);
+  let vaultAsset = VaultAsset.load(vaultAddress.toHex());
+  if (!vaultAsset) {
+    vaultAsset = fetchVaultAsset(account.id);
+  }
   vaultAsset.xTokenShareValue = xTokenShareValue;
   vaultAsset.save();
 }
@@ -32,7 +36,10 @@ export function handleXTokenWithdrawn(event: Withdraw): void {
   if (vaultAddress == ADDRESS_ZERO || xTokenShareValue == BigInt.fromI32(0)) return;
 
   let account = fetchAccount(vaultAddress);
-  let vaultAsset = fetchVaultAsset(account.id);
+  let vaultAsset = VaultAsset.load(vaultAddress.toHex());
+  if (!vaultAsset) {
+    vaultAsset = fetchVaultAsset(account.id);
+  }
   vaultAsset.xTokenShareValue = xTokenShareValue;
   vaultAsset.save();
 }
