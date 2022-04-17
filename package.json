@@ -13,7 +13,7 @@
     "deploy-one": "graph deploy --product hosted-service quantumlyy/nftx-holdings-subgraph-arbitrum",
     "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 quantumlyy/nftx-holdings-subgraph-mainnet",
     "remove-local": "graph remove --node http://localhost:8020/ kodexlabs/exchange-subgraph",
-    "deploy-mainnet": "graph deploy --studio nftx-holdings"
+    "deploy-mainnet": "graph deploy --studio nftx-token-holdings"
   },
   "dependencies": {},
   "devDependencies": {
