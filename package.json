@@ -4,17 +4,16 @@
   "scripts": {
     "codegen": "graph codegen",
     "build": "graph build",
-    "prepare:ethereum:mainnet": "mustache config/ethereum-mainnet.json subgraph.template.yaml > subgraph.yaml",
-    "prepare:ethereum:rinkeby": "mustache config/ethereum-rinkeby.json subgraph.template.yaml > subgraph.yaml",
-    "prepare:ethereum:goerli": "mustache config/ethereum-goerli.json subgraph.template.yaml > subgraph.yaml",
-    "prepare:arbitrum:one": "mustache config/arbitrum-one.json subgraph.template.yaml > subgraph.yaml",
-    "create:local": "graph create --node http://localhost:8020/ quantumlyy/nftx-holdings-subgraph-mainnet",
-    "deploy:ethereum:mainnet": "graph deploy --product hosted-service quantumlyy/nftx-holdings-subgraph-mainnet",
-    "deploy:ethereum:rinkeby": "graph deploy --product hosted-service quantumlyy/nftx-holdings-subgraph-rinkeby",
-    "deploy:ethereum:goerli": "graph deploy --product hosted-service quantumlyy/nftx-holdings-subgraph-goerli",
-    "deploy:arbitrum:one": "graph deploy --product hosted-service quantumlyy/nftx-holdings-subgraph-arbitrum",
-    "deploy:local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 quantumlyy/nftx-holdings-subgraph-mainnet",
-    "remove:local": "graph remove --node http://localhost:8020/ kodexlabs/exchange-subgraph"
+    "prepare-mainnet": "mustache config/ethereum-mainnet.json subgraph.template.yaml > subgraph.yaml",
+    "prepare-rinkeby": "mustache config/ethereum-rinkeby.json subgraph.template.yaml > subgraph.yaml",
+    "prepare-arbitrum": "mustache config/arbitrum-one.json subgraph.template.yaml > subgraph.yaml",
+    "create-local": "graph create --node http://localhost:8020/ quantumlyy/nftx-holdings-subgraph-mainnet",
+    "deploy-mainnet-hosted": "graph deploy --product hosted-service nftx-project/nftx-holdings-subgraph-mainnet",
+    "deploy-rinkeby": "graph deploy --product hosted-service quantumlyy/nftx-holdings-subgraph-rinkeby",
+    "deploy-one": "graph deploy --product hosted-service quantumlyy/nftx-holdings-subgraph-arbitrum",
+    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 quantumlyy/nftx-holdings-subgraph-mainnet",
+    "remove-local": "graph remove --node http://localhost:8020/ kodexlabs/exchange-subgraph",
+    "deploy-mainnet": "graph deploy --studio nftx-token-holdings"
   },
   "dependencies": {},
   "devDependencies": {
