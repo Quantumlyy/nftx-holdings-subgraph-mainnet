@@ -11,7 +11,9 @@
     "deploy:ethereum:mainnet": "graph deploy --product hosted-service nftx-project/nftx-holdings-subgraph-mainnet",
     "deploy:ethereum:rinkeby": "graph deploy --product hosted-service nftx-project/nftx-holdings-subgraph-rinkeby",
     "deploy:ethereum:goerli": "graph deploy --product hosted-service nftx-project/nftx-vault-token-holdings-goerli",
-    "deploy:arbitrum:one": "graph deploy --product hosted-service nftx-project/nftx-vault-token-holdings-arbitrum"
+    "deploy:ethereum:goerli:nftx": "graph deploy --ipfs http://168.119.107.190:5001 --node http://168.119.107.190:8020 nftx-hosted/nftx-vault-token-holdings-goerli",
+    "deploy:arbitrum:one": "graph deploy --product hosted-service nftx-project/nftx-vault-token-holdings-arbitrum",
+    "deploy:arbitrum:one:nftx": "graph deploy --ipfs http://116.202.19.181:5001 --node http://116.202.19.181:8020 nftx-hosted/nftx-vault-token-holdings-arbitrum"
   },
   "dependencies": {},
   "devDependencies": {
